@@ -124,7 +124,7 @@ graph TD
     Client[React SPA Client - Browser] <-->|HTTP REST / JSON| Server[Express Server - Node.js / tsx]
     Server <-->|Google GenAI SDK| GeminiAPI[Google Gemini API]
 
-    subgraph Client Application (Port 3000)
+    subgraph "Client Application (Port 3000)"
         UI[Navbar / Active Tab Router]
         Chat[ChatConsole Component]
         Lab[IncidentSimulator Component]
@@ -133,18 +133,18 @@ graph TD
         AudioEngine[AudioContext / PCM WAV Encoder]
     end
 
-    subgraph Express Server Endpoints
-        Health[/api/health]
-        ChatAPI[/api/chat]
-        TTSAPI[/api/tts]
-        GenScenario[/api/generate-scenario]
+    subgraph "Express Server Endpoints"
+        Health["/api/health"]
+        ChatAPI["/api/chat"]
+        TTSAPI["/api/tts"]
+        GenScenario["/api/generate-scenario"]
         ViteMiddleware[Vite Dev Middleware / Static Dist]
     end
 
-    subgraph External Cloud Services
-        GeminiFlash[gemini-3.6-flash]
-        GeminiTTS[gemini-3.1-flash-tts-preview]
-        GeminiFallback[gemini-2.5-flash / gemini-2.5-pro]
+    subgraph "External Cloud Services"
+        GeminiFlash["gemini-3.6-flash"]
+        GeminiTTS["gemini-3.1-flash-tts-preview"]
+        GeminiFallback["gemini-2.5-flash / gemini-2.5-pro"]
     end
 
     Chat -->|POST /api/chat| ChatAPI
@@ -211,21 +211,21 @@ sequenceDiagram
     autonumber
     actor User as Security Engineer
     participant Client as React Client (ChatConsole)
-    participant Server as Express Server (/api/chat)
+    participant Server as "Express Server (/api/chat)"
     participant Gemini as Google Gemini API
-    participant TTS as Express Server (/api/tts)
+    participant TTS as "Express Server (/api/tts)"
 
-    User->>Client: Enters message / Speaks audio (e.g. "We fix prompt injection with SQL prepared statements")
+    User->>Client: Enters message / Speaks audio
     Client->>Server: POST /api/chat { history, message, activeScenario }
     Note over Server: Appends active scenario context if present
     Server->>Gemini: ai.models.generateContent(model: "gemini-3.6-flash", contents, MENTOR_SYSTEM_INSTRUCTION)
     alt Gemini 3.6 Flash Success
-        Gemini-->>Server: Text Response containing ```correction ... ``` JSON block
+        Gemini-->>Server: Text Response containing correction JSON block
     else Transient 503/429 Error
         Server->>Gemini: Retry with gemini-2.5-flash / gemini-2.5-pro
         Gemini-->>Server: Text Response
     end
-    Note over Server: Regex extracts ```correction ``` blocks into corrections array
+    Note over Server: Regex extracts correction blocks into corrections array
     Note over Server: Strips raw code blocks from text
     Server-->>Client: JSON { text, corrections, rawReply }
     Client->>Client: Render Mentor message + CorrectionCard component
@@ -240,7 +240,7 @@ sequenceDiagram
             TTS-->>Client: JSON { fallbackToWebSpeech: true }
             Client->>Client: Fallback to window.speechSynthesis.speak()
         end
-      end
+    end
 ```
 
 ---
@@ -441,18 +441,18 @@ flowchart TD
     ServerProcessing --> ContextInject[Inject Active Scenario Context]
     ContextInject --> GeminiCall[Invoke Gemini 3.6 Flash]
 
-    GeminiCall --> RegexParse[Regex Extract ```correction ``` Blocks]
-    RegexParse --> ResponseReturn[Return JSON { text, corrections }]
+    GeminiCall --> RegexParse["Regex Extract correction Blocks"]
+    RegexParse --> ResponseReturn["Return JSON { text, corrections }"]
 
     ResponseReturn --> UpdateState[Update React messages & correctionsHistory State]
     UpdateState --> RenderMsg[Render Chat Message + CorrectionCard]
 
-    opt Audio Enabled
-        RenderMsg --> TTSCall[POST /api/tts]
-        TTSCall --> AudioDecode{Base64 Audio Returned?}
-        AudioDecode -->|Yes| PlayBlob[Play Audio Blob / PCM WAV]
-        AudioDecode -->|No / Quota Limit| WebSpeechFallback[Fallback to window.speechSynthesis]
-    end
+    RenderMsg --> AudioCheck{Audio Enabled?}
+    AudioCheck -->|Yes| TTSCall[POST /api/tts]
+    TTSCall --> AudioDecode{Base64 Audio Returned?}
+    AudioDecode -->|Yes| PlayBlob[Play Audio Blob / PCM WAV]
+    AudioDecode -->|No / Quota Limit| WebSpeechFallback[Fallback to window.speechSynthesis]
+    AudioCheck -->|No| Done[Display Message in Chat]
 
     %% Lab Tab Flow
     TabChoice -->|Incident Sim Lab| LabTab[IncidentSimulator View]
