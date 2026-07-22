@@ -1,6 +1,7 @@
 # Agentic AI Security Mentor — Comprehensive Project & System Architecture Documentation
 
 ---
+<img width="1536" height="1024" alt="AI SECURITY MENTOR" src="https://github.com/user-attachments/assets/432eb434-5ec6-4787-bac9-d5070064ea53" />
 
 ## PROJECT OVERVIEW
 
