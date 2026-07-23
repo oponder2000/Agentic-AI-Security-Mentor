@@ -35,10 +35,18 @@ The platform combines a modern React single-page application (SPA) with a Node.j
 ### Business Problem Being Solved
 Traditional cybersecurity concepts (such as SQL Injection, Cross-Site Scripting, and OS container sandboxing) do not map 1-to-1 to autonomous LLM agent architectures:
 - **Misconception 1:** Engineers often assume prompt injection is simply "SQL injection for AI" and try to fix it using input character sanitization (e.g., stripping single quotes or HTML tags), failing to recognize that prompt injection operates on semantic natural language context rather than deterministic compiler syntax.
-- **Misconception 2:** Security teams rely on soft system instructions (prompts) to restrict tool access, rather than enforcing hard least-privilege IAM scopes programmatically at the API gateway layer.
-- **Misconception 3:** Incident response teams attempt traditional containment (such as restarting an LLM Docker container or retraining model weights), which completely fails to stop compromise because LLM models are stateless, while the true vulnerability lives in persistent tool credentials or poisoned vector databases.
-- **Misconception 4:** Security teams assume encrypting a vector store at rest prevents vector poisoning, confusing disk encryption with semantic document provenance validation.
+  <img width="700" height="771" alt="Misconception_1" src="https://github.com/user-attachments/assets/20111210-097b-4aa0-830a-f7da23ef63e8" />
 
+- **Misconception 2:** Security teams rely on soft system instructions (prompts) to restrict tool access, rather than enforcing hard least-privilege IAM scopes programmatically at the API gateway layer.
+  <img width="708" height="708" alt="Misconception_2" src="https://github.com/user-attachments/assets/4990ace0-f674-45d7-b630-ee675091e13c" />
+
+- **Misconception 3:** Incident response teams attempt traditional containment (such as restarting an LLM Docker container or retraining model weights), which completely fails to stop compromise because LLM models are stateless, while the true vulnerability lives in persistent tool credentials or poisoned vector databases.
+  <img width="699" height="531" alt="Misconception_3" src="https://github.com/user-attachments/assets/0c8a6278-893c-4bc7-87f0-dd201ae823b5" />
+
+- **Misconception 4:** Security teams assume encrypting a vector store at rest prevents vector poisoning, confusing disk encryption with semantic document provenance validation.
+  <img width="697" height="722" alt="Misconception_4" src="https://github.com/user-attachments/assets/b9eac127-0f93-4b4b-acf8-b9761c01c3d6" />
+<br>
+<br>
 The **Agentic AI Security Mentor** solves this knowledge gap by providing real-time error correction, immediate feedback on triage plans, and realistic telemetry inspection.
 
 ### Target Users
