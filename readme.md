@@ -14,9 +14,21 @@ The **Agentic AI Security Mentor** is an interactive, full-stack mentorship and 
 ### High-Level Description
 The platform combines a modern React single-page application (SPA) with a Node.js Express server backend powered by Google's Gemini generative AI models (`@google/genai`). It features:
 1. **Interactive Mentor Console ("Mentor Alex"):** A conversational interface that evaluates user statements in real-time, detects AI security misconceptions, and outputs structured visual **Correction Cards** detailing the wrong assumption, the accurate security framing, operational risk impact, and category classification.
+<img width="1007" height="1004" alt="Mentor_Console" src="https://github.com/user-attachments/assets/2c040f77-3657-4ca9-82b6-9505cf65d43c" />
+<br>
+<br>
 2. **SOC Incident Simulation Lab:** A security operations center (SOC) console where engineers triage pre-configured or AI-synthesized breach scenarios complete with initial alerts, multi-component span logs, function execution telemetry, architecture diagrams, and technical compromise vectors.
+<img width="1281" height="818" alt="SOC_INCIDENT_SIMULATION_LAB" src="https://github.com/user-attachments/assets/efb43693-5e53-4c79-8f6f-38878e9646ae" />
+<br>
+<br>
 3. **AI Threat Generator:** An on-demand scenario synthesizer using Gemini JSON mode to dynamically generate custom agentic attack simulations (e.g., SSRF via web search agents, inter-agent RPC spoofing, recursive sub-agent DoS).
+<img width="428" height="197" alt="AI_THREAT_GENERATOR" src="https://github.com/user-attachments/assets/c209dfa7-f974-49c9-a82f-5fdc59faf970" />
+<br>
+<br>
 4. **OWASP Agentic Top 10 Knowledge & Correction Matrix:** A knowledge matrix detailing agentic threat categories (Indirect Prompt Injection, Excessive Agency, Vector Store Poisoning, Flawed AI Incident Containment) along with common engineer misconceptions and required defense controls.
+<img width="1288" height="898" alt="OWASP_AGENTIC_TOP_10_KNOWLEDGE_ _CORRECTION_MATRIX" src="https://github.com/user-attachments/assets/328beb06-71fb-4f68-9ec0-b95b9d3e161a" />
+<br>
+<br>
 5. **Multi-Modal Voice Interaction Engine:** Speech-to-text recording via browser Web Speech API paired with server-side Text-to-Speech (TTS) generation via `gemini-3.1-flash-tts-preview` and client-side Web Speech Synthesis fallbacks.
 
 ### Business Problem Being Solved
